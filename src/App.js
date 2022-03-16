@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 import styles from './App.module.css';
-import CreateNewPost from './CreateNewPost';
+import Posts from './Posts';
 
 const App = () => {
 
@@ -38,16 +38,19 @@ const App = () => {
 
   const createNewPost = async() => {
     if (postBody !== '' && postTitle !== '') {
+      let postId = posts[posts.length - 1].id;
       const post = {
+        id: postId + 1,
         userId: localUser.userId,
-        id: 11,
         title: postTitle,
         body: postBody,
       }
-      await axios.post('https://jsonplaceholder.typicode.com/posts', post);
+      await axios.post(`https://jsonplaceholder.typicode.com/posts?userId=${localUser.userId}`, post);
       setPosts((prevPosts) => {
         return prevPosts.concat(post);
       });
+      setPostBody('');
+      setPostTitle('');
     } else {
       alert('Provide Post body and title!')
     }
@@ -65,7 +68,7 @@ const App = () => {
   return (
     <div className={styles.App}>
       <div style={{marginBottom: '50px', display: 'flex', justifyContent: 'space-between'}}>
-        {localUser.userId && <div>
+        <div>
           <span className={styles.Title}>Enter email to validate</span>
           <div style={{display: 'flex', marginTop: '15px'}}>
             <input
@@ -78,8 +81,8 @@ const App = () => {
               onClick={() => emailValidation()}>
             Validate</button>
           </div>
-        </div>}
-        <div>
+        </div>
+        {localUser.userId && <div>
           <span className={styles.Title}>Create new Post</span>
             <div style={{marginTop: '15px', marginBottom: '15px'}}>
               <input
@@ -104,18 +107,9 @@ const App = () => {
                 onClick={() => createNewPost()}
             >Submit new Post
             </button>
-        </div>
+        </div>}
       </div>
-      <div>
-        { localUser.userId && <div className={styles.Top}><span className={styles.SingleArticle}>User Id:</span> {localUser.userId}</div>}
-        {posts.length > 0 && posts.map(item => (
-          <div className={styles.Article} key={item.id}>
-            <span style={{display: 'block'}}><span className={styles.SingleArticle}>Article Id:</span> {item.id} </span>
-            <span style={{display: 'block'}}><span className={styles.SingleArticle}>Title:</span> {item.title} </span>
-            <span style={{display: 'block'}}><span className={styles.SingleArticle}>Body:</span> {item.body} </span>
-          </div>
-        ))}
-      </div>
+     <Posts posts={posts}  localUser={localUser}/>
     </div>
   );
 }
