@@ -1,0 +1,58 @@
+.App {
+  padding: 50px;
+}
+
+.Title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.InputField {
+  border-radius: 5px;
+  border: 1px solid #121212;
+  display: block;
+  margin-right: 15px;
+  outline: none !important;
+}
+
+.InputField:hover {
+  border-radius: 5px;
+  border: 1px solid #6495ED;
+}
+
+.InputField:active {
+  border-radius: 5px;
+  border: 1px solid #6495ED;
+}
+
+.InputField:focus {
+  border-radius: 5px;
+  border: 1px solid #6495ED;
+}
+
+.ButtonStyle {
+  color: #fff;
+  border-radius: 5px;
+  background-color: #6495ED;
+  border: none;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.Article {
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #6495ED;
+  padding: 15px;
+  border: 1px solid #121212;
+  color: #fff;
+}
+
+.Top {
+  margin-bottom: 15px;
+}
+
+.SingleArticle {
+  font-size: 16px;
+  font-weight: 600;
+}
